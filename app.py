@@ -11,4 +11,4 @@ app = Flask(__name__)
 def migrate():
     return lyric.migrate(request.form['org'], request.form['cht'] if 'cht' in request.form else lyric.chs_to_cht(request.form['chs'])) 
 
-app.run(host=port=port)
+app.run(host=host, port=port)
