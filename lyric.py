@@ -15,9 +15,9 @@ plyric_to_lyric = lambda x:reduce(lambda b,c:b+'\n'+c, map(lambda a:('[{:.0f}:{:
 def migrate(org, translated):
     migrated = pylrc.parse(org + '\n' + plyric_to_lyric(plyric_to_ptlyric([(tag_to_sec(i[0]), i[1]) for i in parse_lyric(translated)]))).toLRC()
     pmigrated = [[tag_to_sec(i[0]), i[1]] for i in re.findall('(?:\[(.+?)\])(.*|\n)', migrated)]
-    for i in range(len(pmigrated)):
-        if pmigrated[i][1] == '\n' and i!=0:
-            pmigrated[i-1][0] =  pmigrated[i][0] - 0.01
+    for i in range(len(pmigrated)-1):
+        if pmigrated[i][1] == '' and type(pmigrated[i+1][0]) == float and pmigrated[i+1][1]!='' :
+            pmigrated[i+1][0] =  pmigrated[i][0] - 0.01
     return pylrc.parse(plyric_to_lyric(pmigrated)).toLRC()
 
     
