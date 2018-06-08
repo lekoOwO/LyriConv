@@ -3,7 +3,7 @@ import lyric
 import os
 
 port = int(os.getenv('PORT', 8080))
-host = int(os.getenv('HOST', '0.0.0.0'))
+host = os.getenv('HOST', '0.0.0.0')
 
 app = Flask(__name__)
 
