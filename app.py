@@ -6,6 +6,7 @@ port = int(os.getenv('PORT', 8080))
 host = os.getenv('HOST', '0.0.0.0')
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024
 
 @app.route('/migrate', methods=['POST'])
 def migrate():
