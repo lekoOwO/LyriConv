@@ -9,6 +9,11 @@ app = Flask(__name__)
 
 @app.route('/migrate', methods=['POST'])
 def migrate():
-    return lyric.migrate(request.form['org'], request.form['cht'] if 'cht' in request.form else lyric.chs_to_cht(request.form['chs'])) 
+    org = request.form['org'] if 'org' in request.form else request.files['org'].read()
+    translated_lang = 'cht' if 'cht' in (request.form or request.files) else 'chs'
+    translated = request.form[translated_lang] if translated_lang in request.form else request.files[translated_lang].read()
+    if translated_lang == 'chs':
+        translated = lyric.chs_to_cht(translated) 
+    return lyric.migrate(org, translated)
 
 app.run(host=host, port=port)
