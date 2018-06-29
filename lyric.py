@@ -18,6 +18,4 @@ def migrate(org, translated):
     for i in range(len(pmigrated)-1):
         if pmigrated[i][1] == '' and type(pmigrated[i+1][0]) == float and pmigrated[i+1][1]!='' and i>0 and type(pmigrated[i-1][0]) == float:
             pmigrated[i+1][0] =  pmigrated[i][0] - offset[0]
-    print(pmigrated)
-    print(plyric_to_lyric(pmigrated))
     return '\n'.join(['[{}]{}'.format(x[0], x[1]) for x in sorted(parse_lyric(plyric_to_lyric(pmigrated)), key=lambda x:0 if not x[0][0].isdigit() else tag_to_sec(x[0]))])
