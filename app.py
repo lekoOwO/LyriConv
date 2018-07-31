@@ -1,6 +1,7 @@
 from flask import Flask, request
 import lyric
 import os
+from modules import mojim, netease
 
 port = int(os.getenv('PORT', 8080))
 host = os.getenv('HOST', '0.0.0.0')
@@ -16,5 +17,24 @@ def migrate():
     if translated_lang == 'chs':
         translated = lyric.chs_to_cht(translated) 
     return lyric.migrate(org, translated)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    keyword = request.args.get('keyword')
+    return {
+        "mojim": mojim.search(keyword),
+        "netease": netease.search(keyword),
+        "code": 200
+    }
+
+@app.route('/lyric', methods=['POST'])
+def lyric_():
+    p = request.form['p']
+    if (p == 'mojim'):
+        url = request.form['url']
+        return mojim.get_lyric(url)
+    elif (p == 'netease'):
+        id_ =  request.form['id']
+        return netease.get_lyric(id_)
 
 app.run(host=host, port=port)

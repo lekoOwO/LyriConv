@@ -4,7 +4,7 @@ import re
 from functools import reduce
 
 def chs_to_cht(chs):
-    return json.loads(requests.post('https://api.zhconvert.org/convert', data = {'text': chs, 'converter': 'Taiwan'}).text)['data']['text']
+    return json.loads(requests.post('https://api.zhconvert.org/convert', data = {'text': chs, 'converter': 'Taiwan'}).text)['data']['text'] if chs else chs
 
 offset = 3
 tolerance = (-10,10)
