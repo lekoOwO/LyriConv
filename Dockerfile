@@ -3,7 +3,9 @@ FROM python:3-alpine
 ENV PORT 8080
 ENV HOST 0.0.0.0
 
-ADD *.py /LyriConv/
+ADD app.py /LyriConv/
+ADD lyric.py /LyriConv/
+ADD modules/*.py /LyriConv/modules/
 ADD requirements.txt /LyriConv/
 
 WORKDIR /LyriConv
