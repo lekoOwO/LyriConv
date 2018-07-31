@@ -10,9 +10,10 @@ ADD requirements.txt /LyriConv/
 
 WORKDIR /LyriConv
 
-RUN apk add --no-cache gcc musl-dev
+RUN apk add --no-cache gcc musl-dev g++ libxslt-dev
+
 RUN pip install -r ./requirements.txt
-RUN apk del gcc musl-dev
+RUN apk del gcc musl-dev g++ libxslt-dev
 
 CMD ["python", "./app.py"]
 
