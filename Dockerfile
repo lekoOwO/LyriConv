@@ -13,7 +13,7 @@ WORKDIR /LyriConv
 RUN apk add --no-cache gcc musl-dev g++ libxslt-dev
 
 RUN pip install -r ./requirements.txt
-RUN apk del gcc musl-dev g++ libxslt-dev
+RUN apk del gcc musl-dev g++
 
 CMD ["python", "./app.py"]
 
