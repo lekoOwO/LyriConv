@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import lyric
 import os
 from modules import mojim, netease
@@ -21,11 +21,11 @@ def migrate():
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     keyword = request.args.get('keyword')
-    return {
+    return jsonify({
         "mojim": mojim.search(keyword),
         "netease": netease.search(keyword),
         "code": 200
-    }
+    })
 
 @app.route('/lyric', methods=['POST'])
 def lyric_():
@@ -35,6 +35,6 @@ def lyric_():
         return mojim.get_lyric(url)
     elif (p == 'netease'):
         id_ =  request.form['id']
-        return netease.get_lyric(id_)
+        return jsonify(netease.get_lyric(id_))
 
 app.run(host=host, port=port)
